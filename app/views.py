@@ -12,6 +12,10 @@ from django.contrib.auth.views import LogoutView
 
 
 def login_view(request):
+
+    if request.user.is_authenticated:
+        return redirect('/')
+
     form = LoginForm(request.POST or None)
 
     msg = None
@@ -21,12 +25,14 @@ def login_view(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
+            remember = form.cleaned_data.get('remember')
+
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                check = request.POST.get('customCheckLogin')
-                print(check)
-                return redirect('/dashboard')
+                if remember is False:
+                    request.session.set_expiry(10)
+                return redirect('/')
             else:
                 msg = 'Invalid credentials'
         else:
@@ -49,7 +55,7 @@ def register_user(request):
             login(request, user)
             success = True
 
-            return redirect('/dashboard/')
+            return redirect('/')
 
         else:
             msg = 'Form is not valid'
@@ -66,6 +72,5 @@ def logout(request):
 
 @login_required(login_url='/login/')
 def dashboard(request):
-    if request.user.is_authenticated:
-        request.session.set_expiry(10)
+
     return render(request, 'home/index.html')
