@@ -17,7 +17,6 @@ from django.contrib.auth.views import LogoutView
 
 
 def login_view(request):
-
     if request.user.is_authenticated:
         return redirect('/')
 
@@ -77,7 +76,6 @@ def logout(request):
 
 @login_required(login_url='/login/')
 def dashboard(request):
-
     return render(request, 'home/index.html')
 
 
