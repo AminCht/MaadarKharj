@@ -102,3 +102,4 @@ def pages(request):
 
 def me(request):
     return render(request, 'home/profile.html')
+

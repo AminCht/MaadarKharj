@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 whitenoise = "*"
 django-allauth = "*"
+django = "*"
+psycopg2 = "*"
 
 [dev-packages]
 

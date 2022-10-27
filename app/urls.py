@@ -7,5 +7,7 @@ urlpatterns = [
     path('register/', views.register_user, name='register'),
     path("logout/", views.logout, name='logout'),
     path('', views.dashboard),
-    path('me/', views.me, name='me')
+    path('me/', views.me, name='me'),
+    re_path(r'^.*\.*', views.pages, name='pages'),
+
 ]
