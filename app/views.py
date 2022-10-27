@@ -5,6 +5,8 @@ Copyright (c) 2019 - present AppSeed.us
 
 # Create your views here.
 from django import template
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect, resolve_url
 from django.contrib.auth import authenticate, login
@@ -17,7 +19,6 @@ from django.contrib.auth.views import LogoutView
 
 
 def login_view(request):
-
     if request.user.is_authenticated:
         return redirect('/')
 
@@ -77,14 +78,11 @@ def logout(request):
 
 @login_required(login_url='/login/')
 def dashboard(request):
-
     return render(request, 'home/index.html')
 
 
 def pages(request):
     context = {}
-    # All resource paths end in .html.
-    # Pick out the html file name from the url. And load that template.
     try:
 
         load_template = request.path.split('/')[-1]
@@ -101,3 +99,6 @@ def pages(request):
         html_template = loader.get_template('home/page-404.html')
         return HttpResponse(html_template.render(context, request))
 
+
+def me(request):
+    return render(request, 'home/profile.html')
