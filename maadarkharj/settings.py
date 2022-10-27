@@ -71,7 +71,7 @@ ROOT_URLCONF = 'maadarkharj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -94,8 +94,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'maadarkharj',
-        'USER': 'amin',
-        'PASSWORD': 'password',
+        'USER': 'admin',
+        'PASSWORD': 'admin',
         'HOST': 'localhost',
     }
 }
