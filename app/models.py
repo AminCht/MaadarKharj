@@ -13,5 +13,5 @@ class Debt(models.Model):
 
 class DebtAmount(models.Model):
     price = models.DecimalField(decimal_places=5, max_digits=10)
-    debtor = models.ManyToManyField(Customer, related_name='debtor')
+    debtor = models.ForeignKey(Customer, related_name='debtor', on_delete=models.CASCADE)
     debt = models.ForeignKey(Debt, on_delete=models.CASCADE)
