@@ -103,3 +103,6 @@ def pages(request):
 def me(request):
     return render(request, 'home/profile.html')
 
+
+def auto(request):
+    return render(request, 'accounts/autofiled.html')
