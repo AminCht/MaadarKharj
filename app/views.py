@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.template import loader
 from django.urls import reverse
 
-from .forms import LoginForm, SignUpForm
+from .forms import LoginForm, SignUpForm, DebtForm
 from django.contrib.auth.views import LogoutView
 
 
@@ -78,7 +78,12 @@ def logout(request):
 
 @login_required(login_url='/login/')
 def dashboard(request):
-    return render(request, 'home/index.html')
+    form = DebtForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            a = form.cleaned_data.get('debt')
+        print(form.is_valid())
+    return render(request, 'home/index.html', {'form': form})
 
 
 def pages(request):
@@ -102,4 +107,8 @@ def pages(request):
 
 def me(request):
     return render(request, 'home/profile.html')
+
+
+#def auto(request):
+
 

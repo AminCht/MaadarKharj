@@ -62,3 +62,18 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
+
+
+class DebtForm(forms.Form):
+    debt = forms.CharField(widget=forms.TextInput(
+            attrs={
+                "placeholder": "debt",
+                "class": "form-control m-input"
+            }
+        ))
+    debt1 = forms.CharField(widget=forms.TextInput(
+            attrs={
+                "placeholder": "debt1",
+                "class": "form-control m-input"
+            }
+        ))
