@@ -82,8 +82,13 @@ def dashboard(request):
     if request.method == 'POST':
         if form.is_valid():
             a = form.cleaned_data.get('debt')
-        print(form.is_valid())
-    return render(request, 'home/index.html', {'form': form})
+            b = form.cleaned_data.get('debt1')
+            print(a)
+            print(b)
+            form = DebtForm(None)
+            return render(request, 'home/index.html', {'form': form})
+    else:
+        return render(request, 'home/index.html', {'form': form})
 
 
 def pages(request):
@@ -108,7 +113,4 @@ def pages(request):
 def me(request):
     return render(request, 'home/profile.html')
 
-
-#def auto(request):
-
-
+# def auto(request):
