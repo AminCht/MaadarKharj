@@ -83,8 +83,12 @@ def dashboard(request):
         if form.is_valid():
             a = form.cleaned_data.get('debt')
             b = form.cleaned_data.get('debt1')
+            c = request.POST.getlist('hi')
+            d = request.POST.getlist('hi1')
             print(a)
             print(b)
+            print(c)
+            print(d)
             form = DebtForm(None)
             return render(request, 'home/index.html', {'form': form})
     else:
