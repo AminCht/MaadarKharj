@@ -1,7 +1,3 @@
-# -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
 
 # Create your views here.
 from django import template
@@ -91,8 +87,6 @@ def pages(request):
             return HttpResponseRedirect(reverse('admin:index'))
         context['segment'] = load_template
 
-        html_template = loader.get_template('home/' + load_template)
-        return HttpResponse(html_template.render(context, request))
 
     except template.TemplateDoesNotExist:
 
