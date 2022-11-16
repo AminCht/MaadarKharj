@@ -1,3 +1,7 @@
+# -*- encoding: utf-8 -*-
+"""
+Copyright (c) 2019 - present AppSeed.us
+"""
 
 # Create your views here.
 from django import template
@@ -10,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.template import loader
 from django.urls import reverse
 
-from .forms import LoginForm, SignUpForm
+from .forms import LoginForm, SignUpForm, DebtForm
 from django.contrib.auth.views import LogoutView
 
 
@@ -74,7 +78,17 @@ def logout(request):
 
 @login_required(login_url='/login/')
 def dashboard(request):
-    return render(request, 'home/index.html')
+    form = DebtForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            c = request.POST.getlist('debtor')
+            d = request.POST.getlist('amount')
+            print(c)
+            print(d)
+            form = DebtForm(None)
+            return render(request, 'home/index.html', {'form': form})
+    else:
+        return render(request, 'home/index.html', {'form': form})
 
 
 def pages(request):
@@ -87,6 +101,8 @@ def pages(request):
             return HttpResponseRedirect(reverse('admin:index'))
         context['segment'] = load_template
 
+        html_template = loader.get_template('home/' + load_template)
+        return HttpResponse(html_template.render(context, request))
 
     except template.TemplateDoesNotExist:
 
@@ -97,3 +113,4 @@ def pages(request):
 def me(request):
     return render(request, 'home/profile.html')
 
+# def auto(request):

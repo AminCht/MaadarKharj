@@ -1,0 +1,5 @@
+Operations to perform:
+  Target specific migration: 0001_initial, from app
+Running migrations:
+  Rendering model states... DONE
+  Unapplying app.0002_debtamount_debt_debt_amount... OK

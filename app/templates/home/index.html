@@ -1,3 +1,4 @@
+
 {% extends 'layouts/base.html' %}
 
 {% block title %} Dashboard {% endblock title %}
@@ -123,62 +124,64 @@
     </div>
 
     <!-- Page content -->
-    <div class="container-fluid mt--6">
-      <div class="row">
-        <div class="col-xl-8">
-          <div class="card bg-default">
-            <div class="card-header bg-transparent">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h6 class="text-light text-uppercase ls-1 mb-1">Overview</h6>
-                  <h5 class="h3 text-white mb-0">Sales value</h5>
-                </div>
-                <div class="col">
-                  <ul class="nav nav-pills justify-content-end">
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales-dark" data-update='{"data":{"datasets":[{"data":[0, 20, 10, 30, 15, 40, 20, 60, 60]}]}}' data-prefix="$" data-suffix="k">
-                      <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                        <span class="d-none d-md-block">Month</span>
-                        <span class="d-md-none">M</span>
-                      </a>
-                    </li>
-                    <li class="nav-item" data-toggle="chart" data-target="#chart-sales-dark" data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}' data-prefix="$" data-suffix="k">
-                      <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                        <span class="d-none d-md-block">Week</span>
-                        <span class="d-md-none">W</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <!-- Chart -->
-              <div class="chart">
-                <!-- Chart wrapper -->
-                <canvas id="chart-sales-dark" class="chart-canvas"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4">
-          <div class="card">
-            <div class="card-header bg-transparent">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
-                  <h5 class="h3 mb-0">Total orders</h5>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <!-- Chart -->
-              <div class="chart">
-                <canvas id="chart-bars" class="chart-canvas"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+            <h2 style="color:green">افزودن بدهی</h2>
+	<strong> Adding and Deleting Input fields Dynamically</strong>
+
+	<div style="width:40%;">
+
+
+		<form method="post" action="/">
+           {% csrf_token %}
+			<div class="">
+				<div class="col-lg-12">
+					<div id="row">
+						<div class="input-group m-3">
+							<div class="input-group-prepend">
+								<button class="btn btn-danger"
+									id="DeleteRow" type="button">
+									<i class="bi bi-trash"></i>
+									Delete
+								</button>
+							</div>
+							 {{form.debtor}}
+                          {{form.amount}}
+						</div>
+					</div>
+
+					<div id="newinput"></div>
+					<button id="rowAdder" type="button"
+						class="btn btn-dark">
+						<span class="bi bi-plus-square-dotted">
+						</span> ADD
+					</button>
+                  <button type="submit" class="btn btn-primary my-4">submit</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<script type="text/javascript">
+
+		$("#rowAdder").click(function () {
+			newRowAdd =
+			'<div id="row"> <div class="input-group m-3">' +
+			'<div class="input-group-prepend">' +
+			'<button class="btn btn-danger" id="DeleteRow" type="button">' +
+			'<i class="bi bi-trash"></i> Delete</button> </div>' +
+			'{{form.debtor}}' +
+            ' {{form.amount}}</div> </div>';
+
+			$('#newinput').append(newRowAdd);
+		});
+
+		$("body").on("click", "#DeleteRow", function () {
+			$(this).parents("#row").remove();
+		})
+	</script>
+
+
+
       <div class="row">
         <div class="col-xl-8">
           <div class="card">
@@ -401,14 +404,15 @@
 
       {% include "includes/footer.html" %}
 
-    </div>
+
 
 {% endblock content %}
 
-<!-- Specific JS goes HERE --> 
+<!-- Specific JS goes HERE -->
 {% block javascripts %}
 
   <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
   <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
 
 {% endblock javascripts %}
+
