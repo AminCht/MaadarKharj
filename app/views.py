@@ -5,8 +5,6 @@ Copyright (c) 2019 - present AppSeed.us
 
 # Create your views here.
 from django import template
-from django.contrib.auth.base_user import AbstractBaseUser
-from django.contrib.auth.models import AbstractUser
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect, resolve_url
 from django.contrib.auth import authenticate, login
@@ -16,6 +14,8 @@ from django.urls import reverse
 
 from .forms import LoginForm, SignUpForm, DebtForm
 from django.contrib.auth.views import LogoutView
+
+from .models import Debt
 
 
 def login_view(request):
@@ -83,8 +83,8 @@ def dashboard(request):
         if form.is_valid():
             c = request.POST.getlist('debtor')
             d = request.POST.getlist('amount')
-            print(c)
-            print(d)
+            debt = Debt.objects.all()
+            print(debt)
             form = DebtForm(None)
             return render(request, 'home/index.html', {'form': form})
     else:

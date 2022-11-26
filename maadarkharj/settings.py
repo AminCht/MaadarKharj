@@ -95,8 +95,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'maadarkharj',
-        'USER': 'amin',
-        'PASSWORD': 'password',
+        'USER': 'foad',
+        'PASSWORD': 'foadas1381',
         'HOST': 'localhost',
     }
 }
@@ -131,6 +131,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
 AUTH_USER_MODEL = 'core.User'
 
 # Static files (CSS, JavaScript, Images)

@@ -7,7 +7,6 @@ urlpatterns = [
     path("logout/", views.logout, name='logout'),
     path('', views.dashboard),
     path('me/', views.me, name='me'),
-    #path('form/', views.auto, name='form'),
     path(r'^.*\.*', views.pages, name='pages'),
     path('accounts/', include('allauth.urls'))
 ]
