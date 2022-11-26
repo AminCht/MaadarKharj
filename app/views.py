@@ -12,10 +12,11 @@ from django.contrib.auth.decorators import login_required
 from django.template import loader
 from django.urls import reverse
 
+from core.models import User
 from .forms import LoginForm, SignUpForm, DebtForm
 from django.contrib.auth.views import LogoutView
 
-from .models import Debt
+from .models import Debt, DebtAmount
 
 
 def login_view(request):
@@ -82,9 +83,17 @@ def dashboard(request):
     if request.method == 'POST':
         if form.is_valid():
             c = request.POST.getlist('debtor')
+            print(c)
+            try:
+                debtor = [User.objects.get(email=item) for item in c]
+                # print(debtor)
+            except User.DoesNotExist:
+                print(0)
+
             d = request.POST.getlist('amount')
-            debt = Debt.objects.all()
-            print(debt)
+            debt = Debt.objects.create(creditor=request.user)
+            debt_amount = [DebtAmount(debt=debt, debtor=debtor[x], price=d[x]) for x in range(len(c))]
+            DebtAmount.objects.bulk_create(debt_amount)
             form = DebtForm(None)
             return render(request, 'home/index.html', {'form': form})
     else:
